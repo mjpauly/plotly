@@ -1313,8 +1313,15 @@ impl Center {
 }
 
 #[derive(Serialize, Clone, Debug)]
-#[serde(rename_all = "kebab-case")]
+#[serde(untagged)]
 pub enum MapboxStyle {
+    Named(NamedMapboxStyle),
+    Custom(String),
+}
+
+#[derive(Serialize, Clone, Debug)]
+#[serde(rename_all = "kebab-case")]
+pub enum NamedMapboxStyle {
     #[serde(rename = "carto-darkmatter")]
     CartoDarkMatter,
     CartoPositron,
@@ -2676,20 +2683,20 @@ mod tests {
     #[test]
     #[rustfmt::skip]
     fn test_serialize_mapbox_style() {
-        assert_eq!(to_value(MapboxStyle::CartoDarkMatter).unwrap(), json!("carto-darkmatter"));
-        assert_eq!(to_value(MapboxStyle::CartoPositron).unwrap(), json!("carto-positron"));
-        assert_eq!(to_value(MapboxStyle::OpenStreetMap).unwrap(), json!("open-street-map"));
-        assert_eq!(to_value(MapboxStyle::StamenTerrain).unwrap(), json!("stamen-terrain"));
-        assert_eq!(to_value(MapboxStyle::StamenToner).unwrap(), json!("stamen-toner"));
-        assert_eq!(to_value(MapboxStyle::StamenWatercolor).unwrap(), json!("stamen-watercolor"));
-        assert_eq!(to_value(MapboxStyle::WhiteBg).unwrap(), json!("white-bg"));
-        assert_eq!(to_value(MapboxStyle::Basic).unwrap(), json!("basic"));
-        assert_eq!(to_value(MapboxStyle::Streets).unwrap(), json!("streets"));
-        assert_eq!(to_value(MapboxStyle::Outdoors).unwrap(), json!("outdoors"));
-        assert_eq!(to_value(MapboxStyle::Light).unwrap(), json!("light"));
-        assert_eq!(to_value(MapboxStyle::Dark).unwrap(), json!("dark"));
-        assert_eq!(to_value(MapboxStyle::Satellite).unwrap(), json!("satellite"));
-        assert_eq!(to_value(MapboxStyle::SatelliteStreets).unwrap(), json!("satellite-streets"));
+        assert_eq!(to_value(NamedMapboxStyle::CartoDarkMatter).unwrap(), json!("carto-darkmatter"));
+        assert_eq!(to_value(NamedMapboxStyle::CartoPositron).unwrap(), json!("carto-positron"));
+        assert_eq!(to_value(NamedMapboxStyle::OpenStreetMap).unwrap(), json!("open-street-map"));
+        assert_eq!(to_value(NamedMapboxStyle::StamenTerrain).unwrap(), json!("stamen-terrain"));
+        assert_eq!(to_value(NamedMapboxStyle::StamenToner).unwrap(), json!("stamen-toner"));
+        assert_eq!(to_value(NamedMapboxStyle::StamenWatercolor).unwrap(), json!("stamen-watercolor"));
+        assert_eq!(to_value(NamedMapboxStyle::WhiteBg).unwrap(), json!("white-bg"));
+        assert_eq!(to_value(NamedMapboxStyle::Basic).unwrap(), json!("basic"));
+        assert_eq!(to_value(NamedMapboxStyle::Streets).unwrap(), json!("streets"));
+        assert_eq!(to_value(NamedMapboxStyle::Outdoors).unwrap(), json!("outdoors"));
+        assert_eq!(to_value(NamedMapboxStyle::Light).unwrap(), json!("light"));
+        assert_eq!(to_value(NamedMapboxStyle::Dark).unwrap(), json!("dark"));
+        assert_eq!(to_value(NamedMapboxStyle::Satellite).unwrap(), json!("satellite"));
+        assert_eq!(to_value(NamedMapboxStyle::SatelliteStreets).unwrap(), json!("satellite-streets"));
     }
 
     #[test]

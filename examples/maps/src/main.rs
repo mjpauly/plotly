@@ -2,7 +2,7 @@
 
 use plotly::{
     common::Marker,
-    layout::{Center, DragMode, Mapbox, MapboxStyle, Margin},
+    layout::{Center, DragMode, Mapbox, MapboxStyle, Margin, NamedMapboxStyle},
     Layout, Plot, ScatterMapbox,
 };
 
@@ -15,7 +15,7 @@ fn scatter_mapbox() {
         .margin(Margin::new().top(0).left(0).bottom(0).right(0))
         .mapbox(
             Mapbox::new()
-                .style(MapboxStyle::OpenStreetMap)
+                .style(MapboxStyle::Named(NamedMapboxStyle::OpenStreetMap))
                 .center(Center::new(45.5017, -73.5673))
                 .zoom(5),
         );
